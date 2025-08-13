@@ -1,0 +1,218 @@
+/* === GOOGLE FONT IMPORT === */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap');
+
+/* === CSS VARIABLES / CONFIG === */
+:root {
+    --primary-color: #0cff00;
+    --background-color: #000000;
+    --glow-color: rgba(12, 255, 0, 0.75);
+    --text-shadow-glow: 0 0 5px var(--glow-color), 0 0 10px var(--glow-color), 0 0 15px var(--glow-color);
+    --container-width: 960px;
+}
+
+/* === GLOBAL STYLES & CRT EFFECT === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+    line-height: 1.6;
+    text-shadow: var(--text-shadow-glow);
+    overflow-x: hidden;
+}
+
+/* CRT Scanline and Noise Overlay */
+.crt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(0,0,0,0) 0,
+            rgba(0,0,0,0.4) 1px,
+            rgba(0,0,0,0) 2px
+        );
+    z-index: 100;
+    opacity: 0.5;
+}
+
+/* Flickering Animation */
+@keyframes flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        opacity: 1;
+    }
+    20%, 24%, 55% {
+        opacity: 0.7;
+    }
+}
+
+body::after {
+    content: ' ';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(18, 16, 16, 0.1);
+    opacity: 0;
+    z-index: 99;
+    pointer-events: none;
+    animation: flicker 0.15s infinite;
+}
+
+
+/* === LAYOUT & CONTAINERS === */
+.container {
+    width: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    display: inline-block;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+section {
+    padding: 60px 0;
+}
+
+/* === HEADER === */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    z-index: 10;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+}
+
+/* === HERO SECTION === */
+#hero {
+    height: 100vh;
+    background-image: url('https://raw.githubusercontent.com/Pitz72/TheSafePlace-WebSite/main/progetto/The%20Safe%20Place%20-%20Copertina%20Orizzontale.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Posiziona il contenuto in basso */
+    align-items: center;
+    padding-bottom: 50px; /* Spazio dal fondo */
+    position: relative;
+}
+
+/* Overlay scuro per migliorare la leggibilità del testo sopra l'immagine */
+#hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: left;
+    width: 100%;
+    max-width: var(--container-width);
+}
+
+.cta-prompt {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+/* Cursore del prompt che lampeggia */
+#prompt-cursor {
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    from, to {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+}
+
+/* === ABOUT SECTION === */
+#about {
+    background-color: #050505; /* Un nero leggermente diverso per separazione */
+}
+
+/* === FEATURES SECTION === */
+#features ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+#features li {
+    border: 2px solid var(--primary-color);
+    padding: 1.5rem;
+    background-color: rgba(12, 255, 0, 0.05); /* Leggero bagliore di sfondo */
+    transition: background-color 0.3s ease;
+}
+
+#features li:hover {
+    background-color: rgba(12, 255, 0, 0.15);
+}
+
+#features h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+/* === FOOTER === */
+footer {
+    background-color: #020202;
+    text-align: center;
+    padding: 30px 0;
+    font-size: 0.9rem;
+}
+
+footer p {
+    margin: 0;
+    opacity: 0.6;
+}
